@@ -10,6 +10,8 @@ const shipping = 0;
 //if FALSE then products once uploaded won't be published
 var publish = 'FALSE';
 
+var failCount = 0;
+
 //AMAZON API INITIALIZATION
 const amazon = require('amazon-product-api');
 const fs = require('fs');
@@ -47,6 +49,7 @@ else{
 }
 
 process.on('unhandledRejection', (reason, p) => {
+	failCount++;
 	console.log('a product failed to be collected');
 });
 
@@ -383,9 +386,10 @@ rl.on('close',function(){
 					fs.appendFile('products.csv',header , function(err){
 						if (err) throw err;
 					});
-					console.log('item header');
 					bar.increment(1);
 					console.log('\n');
+					console.log('fail count: %s', failCount);
+					console.log('item header');
 				}
 				else{
 					var sub = handle+',,,,,,,,'+varValue[0]+',,'+varValue[1]+',,'+varValue[2]+',,,,0,deny,manual,'+price[j]+',,TRUE,TRUE,,,,,FALSE,,,,,,,,,,,,,,,,'+varImage[j]+',lb,,' + '\n';
