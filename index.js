@@ -403,13 +403,14 @@ rl.on('close',function(){
 					console.log('subhead' + j);
 				}
 			}	
+			setTimeout(function(){
+				if(failCount + progress == amazonProducts.length){
+					process.exit(0);
+				}
+			}, 2000);
 		}).catch(function(err){
 			console.log(err);
 		});
-		setTimeout(function(){
-			if(failCount + progress == amazonProducts.length){
-				process.exit(0);
-			}
-		}, 2000);
+		
 	}	
 });
