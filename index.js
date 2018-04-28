@@ -5,6 +5,7 @@ const exchangeRate = 0;
 const markup = 0;
 const creditCard = 0;
 const shipping = 0;
+const offset = 0;
 
 //DEFAULT TO AUTOMATICALLY PUBLISH
 //if FALSE then products once uploaded won't be published
@@ -243,7 +244,7 @@ let promiseInfo = function(parentASIN){
 						if(p * markup/100 < 40){
 							price[i] = Math.ceil((p * (1 + markup/100) + shipping) * exchangeRate) - 0.01;
 						} else {
-							price[i] = Math.ceil(((p * (1 + creditCard/100) + 32.75) + shipping) * exchangeRate) - 0.01;
+							price[i] = Math.ceil(((p * (1 + creditCard/100) + offset) + shipping) * exchangeRate) - 0.01;
 						}
 						varImage[i] = variations.Item[i].ImageSets[0].ImageSet[0].LargeImage[0].URL[0];
 						varVal[i] = variations.Item[i].VariationAttributes[0].VariationAttribute[0].Value[0];
@@ -276,7 +277,7 @@ let promiseInfo = function(parentASIN){
 							if(p * markup/100 < 40){
 								price[i] = Math.ceil((p * (1 + markup/100) + shipping) * exchangeRate) - 0.01;
 							} else {
-								price[i] = Math.ceil(((p * (1 + creditCard/100) + 32.75) + shipping) * exchangeRate) - 0.01;
+								price[i] = Math.ceil(((p * (1 + creditCard/100) + offset) + shipping) * exchangeRate) - 0.01;
 							}
 						}
 						catch(err){
