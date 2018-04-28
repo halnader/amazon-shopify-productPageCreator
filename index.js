@@ -25,6 +25,8 @@ const rl = readline.createInterface( {
 const _cliProgress = require('cli-progress');
 const bar = new _cliProgress.Bar({}, _cliProgress.Presets.shades_classic);
 
+var progress = 0;
+
 //API CALL LIMITER
 const RateLimiter = require('limiter').RateLimiter;
 var limiter = new RateLimiter(1, 1500);
@@ -386,6 +388,7 @@ rl.on('close',function(){
 					fs.appendFile('products.csv',header , function(err){
 						if (err) throw err;
 					});
+					progress++;
 					bar.increment(1);
 					console.log('\n');
 					console.log('fail count: %s', failCount);
@@ -402,5 +405,10 @@ rl.on('close',function(){
 		}).catch(function(err){
 			console.log(err);
 		});
+		setTimeout(function(){
+			if(failCount + progress == amazonProducts.length){
+				process.exit(0);
+			}
+		}, 2000);
 	}	
 });
